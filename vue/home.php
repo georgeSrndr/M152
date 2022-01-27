@@ -102,3 +102,18 @@
 				</div>
 			</div>
 		</div>
+				<!--post modal-->
+				<div id="postModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		  <div class="modal-dialog">
+		  <div class="modal-content">
+			  <div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
+					Update Status
+			  </div>
+			  <div class="modal-body">
+				  <form class="form center-block">
+					<div class="form-group">
+					  <textarea class="form-control input-lg" autofocus="" placeholder="Write something..."></textarea>
+					</div>
+				  </form>
+			  </div>

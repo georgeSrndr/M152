@@ -1,7 +1,8 @@
 <div class="modal-footer">
 				  <div>
-				  <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Post</button>
-					<ul class="pull-left list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li><li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li></ul>
+				  <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Publish</button>
+				  <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Boost Post</button>
+					<ul class="pull-left list-inline"><li><a href=""><i class="glyphicon glyphicon-picture"></i></a></li><li><a href=""><i class="glyphicon glyphicon-user"></i></a></li><li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li><li><a href=""><i class="glyphicon glyphicon-folder-open"></i></a></li></ul>
 				  </div>	
 			  </div>
 		  </div>

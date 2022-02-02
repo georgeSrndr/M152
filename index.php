@@ -1,7 +1,7 @@
 <?php
 include("vue/header.php");
 
-$uc = empty($_GET['uc']) ? "menu" : $_GET['uc']; 
+$uc = empty($_GET['uc']) ? "menu" : $_GET['uc'];
 
 switch ($uc) {
     case 'home':
@@ -13,5 +13,3 @@ switch ($uc) {
 }
 
 include("vue/footer.php");
-
-?>

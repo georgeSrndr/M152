@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">�</button>
-                    Update Status
+                    Update Status                    
                 </div>
                 <div class="modal-body">
                     <form class="form center-block">
@@ -15,11 +15,11 @@
                 </div>
                 <div class="modal-footer">
                     <div>
-                        <form action="" method="POST">
-                            <button class="btn btn-primary btn-sm" name="action" value="publish" data-dismiss="modal">Publish</button>
-                            <button class="btn btn-primary btn-sm" name="action" value="boostPost" data-dismiss="modal">Boost Post</button>
+                        <form action="#" method="POST" enctype="multipart/form-data">
+                            <button class="btn btn-primary btn-sm" name="action" type="submit" value="publish">publish</button>
+                            <input class="btn btn-primary btn-sm" name="action" type="submit" value="Boost Post">
                             <ul class="pull-left list-inline">
-                                <li><a href=""><i><input type="file" class="glyphicon glyphicon-picture" accept="image/png, image/jpeg, image/jpg" multiple="multiple"></i></a></li>
+                                <li><i><input type="file" class="glyphicon glyphicon-picture" name="filesToUpload[]" accept="image/png, image/gif, image/jpeg" multiple/></i></li>
                                 <li><a href=""><i class="glyphicon glyphicon-user"></i></a></li>
                                 <li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li>
                                 <li><a href=""><i class="glyphicon glyphicon-folder-open"></i></a></li>
@@ -27,6 +27,7 @@
                         </form>
                     </div>
                 </div>
+                <?=$reponse?>
             </div>
         </div>
     </div>

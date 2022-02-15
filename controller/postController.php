@@ -1,10 +1,10 @@
     <?php
 
     //require "model/postFunction.php";
-
+    
+    $reponse = "";
     $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING);
     $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
-    $reponse = "";
 
 
     switch ($action) {

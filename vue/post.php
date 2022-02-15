@@ -15,11 +15,11 @@
                 </div>
                 <div class="modal-footer">
                     <div>
-                        <form action="#" method="POST" enctype="multipart/form-data">
+                    <form action="#" method="post" enctype="multipart/form-data">
                             <button class="btn btn-primary btn-sm" name="action" type="submit" value="publish">publish</button>
                             <input class="btn btn-primary btn-sm" name="action" type="submit" value="Boost Post">
                             <ul class="pull-left list-inline">
-                                <li><i><input type="file" class="glyphicon glyphicon-picture" name="filesToUpload[]" accept="image/png, image/gif, image/jpeg" multiple/></i></li>
+                                <li><i><input type="file" class="glyphicon glyphicon-picture" name="filesToUpload[]" accept="image/png, image/gif, image/jpeg" multiple></i></li>
                                 <li><a href=""><i class="glyphicon glyphicon-user"></i></a></li>
                                 <li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li>
                                 <li><a href=""><i class="glyphicon glyphicon-folder-open"></i></a></li>

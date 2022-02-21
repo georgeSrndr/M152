@@ -1,9 +1,9 @@
     <?php
 
-    //require "model/postFunction.php";
-    
+    require "model/postFunction.php";
+
     $reponse = "";
-    $message = filter_input(INPUT_POST, 'message');
+    $commentaire = filter_input(INPUT_POST, 'commentaire');
     $action = filter_input(INPUT_POST, 'action');
 
 
@@ -25,7 +25,7 @@
                     $uploadOk = 0;
                 }
             }
-            
+
             // Check if file already exists
             if (file_exists($target_file)) {
                 $reponse .= "Sorry, file already exists.";
@@ -68,5 +68,3 @@
     require "vue/footer.php";
 
     var_dump($_FILES);
-
-

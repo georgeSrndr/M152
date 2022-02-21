@@ -1,33 +1,5 @@
 <?php
-require "constantesDB.inc.php";
-
-/**
- * Connecteur de la base de données du .
- * Le script meurt (die) si la connexion n'est pas possible.
- * @staticvar PDO $dbc
- * @return \PDO
- */
-function m152DB()
-{
-    static $pokedexConnector = null;
-
-    if ($pokedexConnector == null) {
-
-        try {
-            $pokedexConnector = new PDO('mysql: ' . DBNAME . ';hostname= ' . HOSTNAME, DBUSER, PASSWORD, array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
-                PDO::ATTR_PERSISTENT => true
-            ));
-        } catch (PDOException $Exception) {
-            // PHP Fatal Error. Second Argument Has To Be An Integer, But PDOException::getCode Returns A
-            // String.
-            error_log($Exception->getMessage());
-            error_log($Exception->getCode());
-            die('Could not connect to MySQL');
-        }
-    }
-    return $pokedexConnector;
-}
+require "dbConnection.php";
 
 /**
  * Ajoute une nouvelle post avec ses paramètres
@@ -38,10 +10,10 @@ function m152DB()
 function createPost($commentaire, $creationDate)
 {
     static $ps = null;
-    $sql = "INSERT INTO `m152`.`post` (`commentaire`, `creationDate`) ";
+    $sql = "INSERT INTO `facebook`.`post` (`commentaire`, `creationDate`) ";
     $sql .= "VALUES (:COMMENTAIRE, :CREATIONDATE)";
     if ($ps == null) {
-        $ps = m152DB()->prepare($sql);
+        $ps = facebookConnect()->prepare($sql);
     }
     $answer = false;
     try {
@@ -66,12 +38,12 @@ function updatePost($idPost, $commentaire, $modificationDate)
 {
     static $ps = null;
 
-    $sql = "UPDATE `m152`.`post` SET ";
+    $sql = "UPDATE `facebook`.`post` SET ";
     $sql .= "`commentaire` = :COMMENTAIRE, ";
     $sql .= "`modificationDate` = :MODIFICATIONDATE, ";
     $sql .= "WHERE (`idPost` = :IDPOST)";
     if ($ps == null) {
-        $ps = m152DB()->prepare($sql);
+        $ps = facebookConnect()->prepare($sql);
     }
     $answer = false;
     try {
@@ -94,9 +66,9 @@ function updatePost($idPost, $commentaire, $modificationDate)
 function deletePost($idPost)
 {
     static $ps = null;
-    $sql = "DELETE FROM `m152`.`post` WHERE (`idPost` = :IDPOST);";
+    $sql = "DELETE FROM `facebook`.`post` WHERE (`idPost` = :IDPOST);";
     if ($ps == null) {
-        $ps = m152DB()->prepare($sql);
+        $ps = facebookConnect()->prepare($sql);
     }
     $answer = false;
     try {
@@ -119,10 +91,10 @@ function deletePost($idPost)
 function createMedia($typeMedia, $nomMedia, $creationDate)
 {
     static $ps = null;
-    $sql = "INSERT INTO `m152`.`media` (`typeMedia`, `nomMedia`, `creationDate`) ";
+    $sql = "INSERT INTO `facebook`.`media` (`typeMedia`, `nomMedia`, `creationDate`) ";
     $sql .= "VALUES (:TYPEMEDIA, :NOMMEDIA, :CREATIONDATE)";
     if ($ps == null) {
-        $ps = m152DB()->prepare($sql);
+        $ps = facebookConnect()->prepare($sql);
     }
     $answer = false;
     try {
@@ -147,13 +119,13 @@ function updateMedia($idMedia, $typeMedia, $nomMedia, $modificationDate)
 {
     static $ps = null;
 
-    $sql = "UPDATE `m152`.`media` SET ";
+    $sql = "UPDATE `facebook`.`media` SET ";
     $sql .= "`typeMedia` = :TYPEMEDIA, ";
     $sql .= "`nomMedia` = :COMMENTAIRE, ";
     $sql .= "`modificationDate` = :MODIFICATIONDATE, ";
     $sql .= "WHERE (`idMedia` = :IDMEDIA)";
     if ($ps == null) {
-        $ps = m152DB()->prepare($sql);
+        $ps = facebookConnect()->prepare($sql);
     }
     $answer = false;
     try {
@@ -177,9 +149,9 @@ function updateMedia($idMedia, $typeMedia, $nomMedia, $modificationDate)
 function deleteMedia($idMedia)
 {
     static $ps = null;
-    $sql = "DELETE FROM `m152`.`media` WHERE (`idMedia` = :IDMEDIA);";
+    $sql = "DELETE FROM `facebook`.`media` WHERE (`idMedia` = :IDMEDIA);";
     if ($ps == null) {
-        $ps = m152DB()->prepare($sql);
+        $ps = facebookConnect()->prepare($sql);
     }
     $answer = false;
     try {

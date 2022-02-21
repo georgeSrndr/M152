@@ -1,7 +1,7 @@
 <?php
 require 'constantes.inc.php';
 
-function myPdo() {
+function facebookConnect() {
 	static $db = NULL;
 	try {
 		if ($db == NULL) {

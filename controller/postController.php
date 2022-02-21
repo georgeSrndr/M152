@@ -3,8 +3,8 @@
     //require "model/postFunction.php";
     
     $reponse = "";
-    $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING);
-    $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
+    $message = filter_input(INPUT_POST, 'message');
+    $action = filter_input(INPUT_POST, 'action');
 
 
     switch ($action) {
@@ -49,8 +49,8 @@
                 $reponse .= "Sorry, your file was not uploaded.";
                 // if everything is ok, try to upload file
             } else {
-               // createPost($commentaire, date("Y-m-d H:i:s"));
-                //createMedia($filesToUploadType, $_FILES["filesToUpload"]["name"], date("Y-m-d H:i:s"));
+                createPost($commentaire, date("Y-m-d H:i:s"));
+                createMedia($filesToUploadType, $_FILES["filesToUpload"]["name"], date("Y-m-d H:i:s"));
 
                 if (move_uploaded_file($_FILES["filesToUpload"]["tmp_name"], $target_file)) {
                     $reponse .= "The file " . htmlspecialchars(basename($_FILES["filesToUpload"]["name"])) . " has been uploaded.";

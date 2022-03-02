@@ -2,10 +2,6 @@
 
     require "model/postFunction.php";
 
-    var_dump($_FILES);
-    echo '<br><br>';
-    var_dump($_POST);
-    echo '<br><br>####';
 
     $reponse = "";
     $commentaire = filter_input(INPUT_POST, 'commentaire');
@@ -16,7 +12,7 @@
         case 'publish':
 
             $nbFileUpload = count($_FILES['filesToUpload']['name']);
-
+            $idPost = createPost($commentaire, date("Y-m-d H:i:s"));
             for ($i = 0; $i < $nbFileUpload; $i++) {
 
                 $target_dir = "uploaded/"; // specifies the directory where the file is going to be placed
@@ -43,7 +39,7 @@
                 }
 
                 // Check file size
-                if ($_FILES["filesToUpload"]["size"][$i] > 3000000) {
+                if ($_FILES["filesToUpload"]["size"][$i] > 3*1024*1024) {
                     $reponse .= "Sorry, your file is too large.";
                     $uploadOk = 0;
                 }
@@ -55,18 +51,15 @@
                 }
 
                 // Check if $uploadOk is set to 0 by an error
-                if ($uploadOk == 0) {
-                    $reponse .= "Sorry, your file was not uploaded.";
-                    // if everything is ok, try to upload file
-                } else {
-                    createPost($commentaire, date("Y-m-d H:i:s"));
-                    createMedia($filesToUploadType, $_FILES["filesToUpload"]["name"][$i], date("Y-m-d H:i:s"));
-
-                    if (move_uploaded_file($_FILES["filesToUpload"]["tmp_name"][$i], $target_file)) {
-                        $reponse .= "The file " . htmlspecialchars(basename($_FILES["filesToUpload"]["name"][$i])) . " has been uploaded.";
-                    } else {
-                        $reponse .= "Sorry, there was an error uploading your file.";
-                    }
+                 else {                     
+                    if($idPost){
+                        if (move_uploaded_file($_FILES["filesToUpload"]["tmp_name"][$i], $target_file)) {
+                            $reponse .= "The file " . htmlspecialchars(basename($_FILES["filesToUpload"]["name"][$i])) . " has been uploaded.";
+                        } else {
+                            $reponse .= "Sorry, there was an error uploading your file.";
+                        }
+                        createMedia($filesToUploadType, $_FILES["filesToUpload"]["name"][$i], date("Y-m-d H:i:s"),$idPost);
+                    }                                     
                 }
             }
             break;

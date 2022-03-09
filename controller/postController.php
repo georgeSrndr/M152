@@ -12,13 +12,16 @@
         case 'publish':
 
             $nbFileUpload = count($_FILES['filesToUpload']['name']);
-            $idPost = createPost($commentaire, date("Y-m-d H:i:s"));
+            $lastIdPost = createPostAndReturnLastId($commentaire, date("Y-m-d H:i:s"));
+            define('sizeImageLimite', 3 * 1024 * 1024);
+
             for ($i = 0; $i < $nbFileUpload; $i++) {
 
                 $target_dir = "uploaded/"; // specifies the directory where the file is going to be placed
                 $target_file = $target_dir . basename($_FILES["filesToUpload"]["name"][$i]);
                 $uploadOk = 1;
                 $filesToUploadType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                $uniqueNameID = uniqid() .".". $filesToUploadType;
 
                 // Check if image file is a actual image or fake image
                 if (isset($_POST["publish"])) {
@@ -32,14 +35,8 @@
                     }
                 }
 
-                // Check if file already exists
-                if (file_exists($target_file)) {
-                    $reponse .= "Sorry, file already exists.";
-                    $uploadOk = 0;
-                }
-
                 // Check file size
-                if ($_FILES["filesToUpload"]["size"][$i] > 3*1024*1024) {
+                if ($_FILES["filesToUpload"]["size"][$i] > sizeImageLimite) {
                     $reponse .= "Sorry, your file is too large.";
                     $uploadOk = 0;
                 }
@@ -51,16 +48,19 @@
                 }
 
                 // Check if $uploadOk is set to 0 by an error
-                 else {                     
-                    if($idPost){
-                        if (move_uploaded_file($_FILES["filesToUpload"]["tmp_name"][$i], $target_file)) {
+                            // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                $reponse .= "Sorry, your file was not uploaded.";
+            }else {                     
+                    if($lastIdPost){
+                        if (move_uploaded_file($_FILES["filesToUpload"]["tmp_name"][$i], $target_dir . $uniqueNameID)) {
                             $reponse .= "The file " . htmlspecialchars(basename($_FILES["filesToUpload"]["name"][$i])) . " has been uploaded.";
                         } else {
                             $reponse .= "Sorry, there was an error uploading your file.";
                         }
-                        createMedia($filesToUploadType, $_FILES["filesToUpload"]["name"][$i], date("Y-m-d H:i:s"),$idPost);
+                        createMedia($filesToUploadType, $uniqueNameID, date("Y-m-d H:i:s"),$lastIdPost);
                     }                                     
-                }
+                }        
             }
             break;
     }

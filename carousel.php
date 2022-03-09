@@ -15,6 +15,8 @@
 </head>
 
 <body>
+
+
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -48,6 +50,9 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+
+
+
 </body>
 <script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/bootstrap.js"></script>

@@ -11,7 +11,7 @@
                         <div class="form-group">
                             <textarea name="commentaire" id="commentaire" class="form-control input-lg" autofocus="" placeholder="Write something..."></textarea>
                         </div>
-                </div>
+                </div>                
                 <div class="modal-footer">
                     <div>
                         <button class="btn btn-primary btn-sm" name="action" type="submit" value="publish">publish</button>
@@ -24,6 +24,10 @@
                         </ul>
                         </form>
                     </div>
+                    <?php
+                    var_dump(readImagesMediaAssoc(4));
+                    
+                    ?>
                 </div>
                 <?= $reponse ?>
             </div>

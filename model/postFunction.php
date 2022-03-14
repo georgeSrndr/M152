@@ -1,12 +1,6 @@
 <?php
 require "dbConnection.php";
 
-/**
- * Ajoute une nouvelle post avec ses paramètres
- * @param mixed $commentaire Commentaire du post
- * @param mixed $creationDate  La date de création du post
- * @return bool true si réussi
- */
 function createMediaAndPost($typeMedia, $nomMedia, $creationDate, $commentaire, $alreadyLoop)
 {
     static $ps = null;
@@ -50,7 +44,7 @@ function createMediaAndPost($typeMedia, $nomMedia, $creationDate, $commentaire, 
     return $answer;
 }
 
-
+/*
 function createPostAndReturnLastId($commentaire, $creationDate)
 {
     $sql = "INSERT INTO `facebook`.`post` (`commentaire`, `creationDate`) ";
@@ -65,7 +59,7 @@ function createPostAndReturnLastId($commentaire, $creationDate)
         echo $e->getMessage();
     }
     return $pdo->lastInsertId();
-}
+}*/
 
 function LastIdReturn()
 {
@@ -108,14 +102,14 @@ function deletePost($idPost)
     }
     return $answer;
 }
-
+/*
 /**
  * Ajoute une nouvelle média avec ses paramètres
  * @param mixed $typeMedia Le type du média
  * @param mixed $nomMedia Le nom du média
  * @param mixed $creationDate  La date de création du média
  * @return bool true si réussi
- */
+
 function createMedia($typeMedia, $nomMedia, $creationDate, $idPost)
 {
     static $ps = null;
@@ -136,7 +130,7 @@ function createMedia($typeMedia, $nomMedia, $creationDate, $idPost)
         echo $e->getMessage();
     }
     return $answer;
-}
+}*/
 
 /**
  * Supprime la note avec l'id $idMedia.

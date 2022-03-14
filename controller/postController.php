@@ -6,13 +6,14 @@
     $reponse = "";
     $commentaire = filter_input(INPUT_POST, 'commentaire');
     $action = filter_input(INPUT_POST, 'action');
+    $loop = 0;
 
 
     switch ($action) {
         case 'publish':
 
             $nbFileUpload = count($_FILES['filesToUpload']['name']);
-            $lastIdPost = createPostAndReturnLastId($commentaire, date("Y-m-d H:i:s"));
+           // $lastIdPost = createPostAndReturnLastId($commentaire, date("Y-m-d H:i:s"));
             define('sizeImageLimite', 3 * 1024 * 1024);
 
             for ($i = 0; $i < $nbFileUpload; $i++) {
@@ -41,25 +42,28 @@
                     $uploadOk = 0;
                 }
 
+                /*
                 // Allow certain file formats
                 if ($filesToUploadType != "jpg" && $filesToUploadType != "png" && $filesToUploadType != "jpeg" && $filesToUploadType != "gif") {
                     $reponse .= "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
                     $uploadOk = 0;
-                }
+                }*/
 
                 // Check if $uploadOk is set to 0 by an error
                             // Check if $uploadOk is set to 0 by an error
             if ($uploadOk == 0) {
                 $reponse .= "Sorry, your file was not uploaded.";
             }else {                     
-                    if($lastIdPost){
+                 //   if($lastIdPost){
                         if (move_uploaded_file($_FILES["filesToUpload"]["tmp_name"][$i], $target_dir . $uniqueNameID)) {
                             $reponse .= "The file " . htmlspecialchars(basename($_FILES["filesToUpload"]["name"][$i])) . " has been uploaded.";
+                            createMediaAndPost($filesToUploadType, $uniqueNameID,date("Y-m-d H:i:s"), $commentaire, $loop);
+                            $loop = 1;
                         } else {
                             $reponse .= "Sorry, there was an error uploading your file.";
                         }
-                        createMedia($filesToUploadType, $uniqueNameID, date("Y-m-d H:i:s"),$lastIdPost);
-                    }                                     
+                       // createMedia($filesToUploadType, $uniqueNameID, date("Y-m-d H:i:s"),$lastIdPost);
+                  //  }                                     
                 }        
             }
             break;

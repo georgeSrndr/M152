@@ -7,7 +7,7 @@
                     Update Status
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="post" enctype="multipart/form-data">
+                    <form action="" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <textarea name="commentaire" id="commentaire" class="form-control input-lg" autofocus="" placeholder="Write something..."></textarea>
                         </div>

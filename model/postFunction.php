@@ -4,7 +4,7 @@ require "dbConnection.php";
 function createMediaAndPost($typeMedia, $nomMedia, $creationDate, $commentaire, $alreadyLoop)
 {
     static $ps = null;
-    static $LastidPost = null; 
+    static $LastidPost = null;
     $answer = false;
     $idPost = $LastidPost;
     try {
@@ -224,7 +224,7 @@ function readPost()
     return $answer;
 }
 
-
+/*
 function Carrousel()
 {
     $html = "";
@@ -249,7 +249,7 @@ function Carrousel()
             $active = ($e == 0) ? "active" : "";
             $html .= "<div class=\"item $active\" align=\"center\">";
 
-            if ($readMediasPost[$e]["typeMedia"] == "png" || $readMediasPost[$e]["typeMedia"] == "jpg" || $readMediasPost[$e]["typeMedia"] == "jpeg" || $readMediasPost[$e]["typeMedia"] == "gif" || $readMediasPost[$e]["typeMedia"] == "jpg"){
+            if ($readMediasPost[$e]["typeMedia"] == "png" || $readMediasPost[$e]["typeMedia"] == "jpg" || $readMediasPost[$e]["typeMedia"] == "jpeg" || $readMediasPost[$e]["typeMedia"] == "gif" || $readMediasPost[$e]["typeMedia"] == "jpg") {
                 $html .= "<img src=\"uploaded/" . $readMediasPost[$e]["nomMedia"] . "\" alt=\"" . $readMediasPost[$e]["nomMedia"] . "\">";
                 $html .= "</div>";
             }
@@ -259,7 +259,7 @@ function Carrousel()
                 $html .= "\n <source src=\"uploaded/" . $readMediasPost[$e]["nomMedia"] . "\" type=\"video/mp4\">";
                 $html .= "\n </video>";
                 $html .= "\n </div>";
-            }             
+            }
 
             if ($readMediasPost[$e]["typeMedia"] == "mp3" || $readMediasPost[$e]["typeMedia"] == "wav" || $readMediasPost[$e]["typeMedia"] == "ogg") {
                 $html .= "\n <audio controls>";
@@ -269,7 +269,6 @@ function Carrousel()
             }
         }
         $html .= "</div>";
-
 
         // Left and right controls -->
         $html .= "<a class=\"left carousel-control\" href=\"#myCarousel$i\" data-slide=\"prev\">";
@@ -286,6 +285,106 @@ function Carrousel()
         $html .= "<p class=\"lead\">" . $readMediasPost[0]["commentaire"] . "</p>";
         $html .= "</div>";
         $html .= "</div>";
+    }
+
+    return $html;
+}*/
+
+
+function AffichagePost()
+{
+    $html = "";
+
+    for ($i = LastIdReturn()[0]["idPost"]; $i >= 1; $i--) {
+        $readMediasPost = readMediaAssoc($i);
+        if (countImagesMediaAssoc($i) > 1) {
+
+            $html .= "<div class=\"panel panel-default\">";
+            $html .= "<div id=\"myCarousel$i\" class=\"carousel slide\" data-interval=\"false\" data-ride=\"carousel\">";
+
+            // Indicators -->
+            $html .= "<ol class=\"carousel-indicators\">";
+            for ($g = 0; $g < countImagesMediaAssoc($i); $g++) {
+                $active = ($g == 0) ? "active" : "";
+                $html .= "<li data-target=\"#myCarousel$i\" data-slide-to=\"$i\" class=\"$active\"></li>";
+            }
+            $html .= "</ol>";
+
+            $html .= "<div class=\"carousel-inner\">";
+            //Wrapper for slides 
+            for ($e = 0; $e < countImagesMediaAssoc($i); $e++) {
+                $active = ($e == 0) ? "active" : "";
+                $html .= "<div class=\"item $active\" align=\"center\">";
+
+                if ($readMediasPost[$e]["typeMedia"] == "png" || $readMediasPost[$e]["typeMedia"] == "jpg" || $readMediasPost[$e]["typeMedia"] == "jpeg" || $readMediasPost[$e]["typeMedia"] == "gif" || $readMediasPost[$e]["typeMedia"] == "jpg") {
+                    $html .= "<img src=\"uploaded/" . $readMediasPost[$e]["nomMedia"] . "\" alt=\"" . $readMediasPost[$e]["nomMedia"] . "\" width=\"100%\" height=\"50%\">";
+                    $html .= "</div>";
+                }
+
+                if ($readMediasPost[$e]["typeMedia"] == "mp4" || $readMediasPost[$e]["typeMedia"] == "m4v") {
+                    $html .= "\n <video width=\"100%\" height=\"100%\" controls autoplay loop muted >";
+                    $html .= "\n <source src=\"uploaded/" . $readMediasPost[$e]["nomMedia"] . "\" type=\"video/mp4\" width=\"100%\" height=\"50%\">";
+                    $html .= "\n </video>";
+                    $html .= "\n </div>";
+                }
+
+                if ($readMediasPost[$e]["typeMedia"] == "mp3" || $readMediasPost[$e]["typeMedia"] == "wav" || $readMediasPost[$e]["typeMedia"] == "ogg") {
+                    $html .= "\n <audio controls>";
+                    $html .= "\n <source src=\"uploaded/" . $readMediasPost[$e]["nomMedia"] . "\" width=\"100%\" height=\"50%\">";
+                    $html .= "\n </audio>";
+                    $html .= "\n </div>";
+                }
+            }
+            $html .= "</div>";
+
+            // Left and right controls -->
+            $html .= "<a class=\"left carousel-control\" href=\"#myCarousel$i\" data-slide=\"prev\">";
+            $html .= "<span class=\"glyphicon glyphicon-chevron-left\"></span>";
+            $html .= "<span class=\"sr-only\">Previous</span>";
+            $html .= "</a>";
+            $html .= "<a class=\"right carousel-control\" href=\"#myCarousel$i\" data-slide=\"next\">";
+            $html .= "<span class=\"glyphicon glyphicon-chevron-right\"></span>";
+            $html .= "<span class=\"sr-only\">Next</span>";
+            $html .= "</a>";
+            $html .= "</div>";
+
+            $html .= "<div class=\"panel-body\">";
+            $html .= "<p class=\"lead\">" . $readMediasPost[0]["commentaire"] . "</p>";
+            $html .= "</div>";
+            $html .= "</div>";
+        } elseif (countImagesMediaAssoc($i) == 1) {
+
+             $html .= "<div class=\"panel panel-default\">";
+             $html .= "<div class=\"carousel\">";
+
+            if ($readMediasPost[0]["typeMedia"] == "png" || $readMediasPost[0]["typeMedia"] == "jpg" || $readMediasPost[0]["typeMedia"] == "jpeg" || $readMediasPost[0]["typeMedia"] == "gif" || $readMediasPost[0]["typeMedia"] == "jpg") {
+                $html .= "<div class=\"item\" align=\"center\" >";
+                $html .= "<img src=\"uploaded/" . $readMediasPost[0]["nomMedia"] . "\" alt=\"" . $readMediasPost[0]["nomMedia"] . "\" width=\"100%\" height=\"50%\">";
+                $html .= "</div>";
+            }
+
+            if ($readMediasPost[0]["typeMedia"] == "mp4" || $readMediasPost[0]["typeMedia"] == "m4v") {
+                $html .= "<div class=\"item\" align=\"center\">";
+                $html .= "\n <video width=\"100%\" height=\"100%\" controls autoplay loop muted >";
+                $html .= "\n <source src=\"uploaded/" . $readMediasPost[0]["nomMedia"] . "\" type=\"video/mp4\" width=\"100%\" height=\"50%\">";
+                $html .= "\n </video>";
+                $html .= "\n </div>";
+            }
+
+            if ($readMediasPost[0]["typeMedia"] == "mp3" || $readMediasPost[0]["typeMedia"] == "wav" || $readMediasPost[0]["typeMedia"] == "ogg") {
+                $html .= "<div class=\"item\" align=\"center\">";
+                $html .= "\n <audio controls>";
+                $html .= "\n <source src=\"uploaded/" . $readMediasPost[0]["nomMedia"] . "\" width=\"100%\" height=\"50%\">";
+                $html .= "\n </audio>";
+                $html .= "\n </div>";
+            }
+        
+            $html .= "<div class=\"panel-body\">";
+            $html .= "<p class=\"lead\">" . $readMediasPost[0]["commentaire"] . "</p>";
+            $html .= "</div>";
+            $html .= "</div>";
+            $html .= "</div>";
+        }
     }
 
     return $html;

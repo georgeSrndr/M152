@@ -58,10 +58,11 @@
                         if (move_uploaded_file($_FILES["filesToUpload"]["tmp_name"][$i], $target_dir . $uniqueNameID)) {
                             $reponse .= "The file " . htmlspecialchars(basename($_FILES["filesToUpload"]["name"][$i])) . " has been uploaded.";
                             createMediaAndPost($filesToUploadType, $uniqueNameID,date("Y-m-d H:i:s"), $commentaire, $loop);
-                            $loop = 1;
+                            $loop = 1;                            
                         } else {
                             $reponse .= "Sorry, there was an error uploading your file.";
                         }
+                        header('Location: index.php?uc=home');
                        // createMedia($filesToUploadType, $uniqueNameID, date("Y-m-d H:i:s"),$lastIdPost);
                   //  }                                     
                 }        
